@@ -1,11 +1,11 @@
 package handlers
 
 import (
-	"go-fiber-starter/api/middlewares"
-	"go-fiber-starter/auth"
-	"go-fiber-starter/db/models"
-	"go-fiber-starter/pkg/dtos"
-	"go-fiber-starter/pkg/utils"
+	"mini-library-api/api/middlewares"
+	"mini-library-api/auth"
+	"mini-library-api/db/models"
+	"mini-library-api/pkg/dtos"
+	"mini-library-api/pkg/utils"
 	"net/http"
 
 	"github.com/gofiber/fiber/v3"

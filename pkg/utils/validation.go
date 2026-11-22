@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"go-fiber-starter/pkg/constant"
+	"mini-library-api/pkg/constant"
 	"regexp"
 
 	"github.com/go-playground/validator/v10"

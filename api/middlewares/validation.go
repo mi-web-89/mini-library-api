@@ -2,9 +2,9 @@ package middlewares
 
 import (
 	"errors"
-	"go-fiber-starter/pkg/dtos"
-	"go-fiber-starter/pkg/rajaongkir"
-	"go-fiber-starter/pkg/utils"
+	"mini-library-api/pkg/dtos"
+	"mini-library-api/pkg/rajaongkir"
+	"mini-library-api/pkg/utils"
 	"net/http"
 	"reflect"
 	"regexp"

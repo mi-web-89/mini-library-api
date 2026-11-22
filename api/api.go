@@ -1,11 +1,12 @@
 package api
 
 import (
-	"go-fiber-starter/api/handlers"
-	"go-fiber-starter/api/middlewares"
-	"go-fiber-starter/auth"
-	"go-fiber-starter/pkg/fileupload"
-	"go-fiber-starter/users"
+	"mini-library-api/api/handlers"
+	"mini-library-api/api/middlewares"
+	"mini-library-api/auth"
+	"mini-library-api/modules/categories"
+	"mini-library-api/modules/users"
+	"mini-library-api/pkg/fileupload"
 
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/gofiber/fiber/v3"
@@ -21,11 +22,13 @@ func NewApp(repository *gorm.DB, cld *cloudinary.Cloudinary, jwtConfig middlewar
 		app      = fiber.New()
 		uploader = fileupload.InitUploader(cld)
 
-		authService = auth.New(repository)
-		userService = users.New(repository)
+		authService     = auth.New(repository)
+		userService     = users.New(repository)
+		categoryService = categories.New(repository)
 
-		authHandler  = handlers.NewAuth(authService, jwtConfig)
-		usersHandler = handlers.NewUsers(userService, uploader)
+		authHandler     = handlers.NewAuth(authService, jwtConfig)
+		usersHandler    = handlers.NewUsers(userService, uploader)
+		categoryHandler = handlers.NewCategories(categoryService)
 	)
 
 	logger, _ := zap.NewProduction()
@@ -49,6 +52,13 @@ func NewApp(repository *gorm.DB, cld *cloudinary.Cloudinary, jwtConfig middlewar
 
 	userRoutes.Get("/profile", usersHandler.GetProfile)
 	userRoutes.Patch("/profile/edit", middlewares.ValidateBody(&users.EditProfileRequest{}), usersHandler.EditProfile)
+
+	categoryRoutes := app.Group("api/v1", jwtMiddleware, middlewares.VerifyToken())
+	categoryRoutes.Get("/categories", categoryHandler.GetAll)
+	categoryRoutes.Get("/categories/:id", categoryHandler.GetById)
+	categoryRoutes.Post("/categories", middlewares.VerifyAdmin(), middlewares.ValidateBody(&categories.CategoryRequest{}), categoryHandler.Create)
+	categoryRoutes.Patch("/categories/:id", middlewares.VerifyAdmin(), middlewares.ValidateBody(&categories.CategoryRequest{}), categoryHandler.Update)
+	categoryRoutes.Delete("/categories/:id", middlewares.VerifyAdmin(), categoryHandler.Delete)
 
 	return app
 }

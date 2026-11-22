@@ -22,12 +22,12 @@ require-template-schema-exists: true
 template: testify
 template-schema: "{{.Template}}.schema.json"
 packages:
-  go-fiber-starter/users:
+  mini-library-api/users:
     interfaces:
       Repository:
       Service:
 
-  go-fiber-starter/auth:
+  mini-library-api/auth:
     interfaces:
       Repository:
       Service:

@@ -6,7 +6,7 @@ package users
 
 import (
 	"context"
-	"go-fiber-starter/users"
+	"mini-library-api/modules/users"
 
 	mock "github.com/stretchr/testify/mock"
 )

@@ -2,9 +2,9 @@ package rajaongkir
 
 import (
 	"encoding/json"
-	"go-fiber-starter/pkg/clients"
-	"go-fiber-starter/pkg/constant"
-	"go-fiber-starter/pkg/utils"
+	"mini-library-api/pkg/clients"
+	"mini-library-api/pkg/constant"
+	"mini-library-api/pkg/utils"
 	"net/http"
 )
 

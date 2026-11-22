@@ -2,11 +2,11 @@ package main
 
 import (
 	"errors"
-	"go-fiber-starter/db/drivers"
-	"go-fiber-starter/db/models"
-	"go-fiber-starter/pkg/constant"
-	"go-fiber-starter/pkg/utils"
 	"log"
+	"mini-library-api/db/drivers"
+	"mini-library-api/db/models"
+	"mini-library-api/pkg/constant"
+	"mini-library-api/pkg/utils"
 	"strconv"
 
 	"golang.org/x/crypto/bcrypt"

@@ -1,4 +1,4 @@
-# go-fiber-starter
+# mini-library-api
 
 Batteries-included Go Fiber Starter Project
 
@@ -39,6 +39,7 @@ cp .env.example .env
 ```sh
 go run cmd/seed/role.go
 ```
+
 
 5. Run the application.
 

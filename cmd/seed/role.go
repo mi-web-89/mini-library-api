@@ -1,10 +1,10 @@
 package main
 
 import (
-	"go-fiber-starter/db/drivers"
-	"go-fiber-starter/pkg/constant"
-	"go-fiber-starter/pkg/utils"
 	"log"
+	"mini-library-api/db/drivers"
+	"mini-library-api/pkg/constant"
+	"mini-library-api/pkg/utils"
 
 	"gorm.io/gorm"
 )

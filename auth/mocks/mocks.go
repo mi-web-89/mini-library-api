@@ -6,7 +6,7 @@ package auth
 
 import (
 	"context"
-	"go-fiber-starter/auth"
+	"mini-library-api/auth"
 
 	mock "github.com/stretchr/testify/mock"
 )
