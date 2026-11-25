@@ -138,7 +138,7 @@ func (c Categories) Delete(ctx fiber.Ctx) error {
 	err = c.categories.Delete(ctx.Context(), uint(id))
 
 	if err != nil {
-		return ctx.Status(http.StatusInternalServerError).JSON(dtos.Response[any]{
+		return ctx.Status(http.StatusNotFound).JSON(dtos.Response[any]{
 			Status:  "failed",
 			Message: utils.GetErrorMessage(err),
 		})

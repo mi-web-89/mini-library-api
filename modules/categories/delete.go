@@ -6,12 +6,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type deleteCategory struct {
+type deletecategory struct {
 	repository *gorm.DB
 	get
 }
 
-func (d deleteCategory) Delete(ctx context.Context, id uint) error {
+func (d deletecategory) Delete(ctx context.Context, id uint) error {
 	category, err := d.get.GetByID(ctx, id)
 
 	if err != nil {

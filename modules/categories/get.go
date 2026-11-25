@@ -11,7 +11,7 @@ type get struct {
 }
 
 func (g get) GetByID(ctx context.Context, id uint) (Category, error) {
-	category := new(Category)
+	category := new(Category) // pointer
 
 	if err := g.repository.WithContext(ctx).First(category, id).Error; err != nil {
 		return Category{}, err

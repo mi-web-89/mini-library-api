@@ -20,7 +20,7 @@ type service struct {
 	get
 	create
 	update
-	deleteCategory
+	deletecategory
 }
 
 var _ Service = (*service)(nil)
@@ -31,6 +31,6 @@ func New(repository *gorm.DB) Service {
 		get:            get{repository: repository},
 		create:         create{repository: repository},
 		update:         update{repository: repository, get: get{repository: repository}},
-		deleteCategory: deleteCategory{repository: repository, get: get{repository: repository}},
+		deletecategory: deletecategory{repository: repository, get: get{repository: repository}},
 	}
 }

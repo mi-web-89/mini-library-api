@@ -4,6 +4,7 @@ import (
 	"mini-library-api/api/handlers"
 	"mini-library-api/api/middlewares"
 	"mini-library-api/auth"
+	"mini-library-api/modules/books"
 	"mini-library-api/modules/categories"
 	"mini-library-api/modules/users"
 	"mini-library-api/pkg/fileupload"
@@ -19,16 +20,19 @@ import (
 
 func NewApp(repository *gorm.DB, cld *cloudinary.Cloudinary, jwtConfig middlewares.JWTConfig) *fiber.App {
 	var (
-		app      = fiber.New()
-		uploader = fileupload.InitUploader(cld)
+		app = fiber.New()
+		// uploader = fileupload.InitUploader(cld)
+		uploader = &fileupload.CloudinaryUploader{Cld: cld}
 
 		authService     = auth.New(repository)
 		userService     = users.New(repository)
 		categoryService = categories.New(repository)
+		bookService     = books.New(repository)
 
 		authHandler     = handlers.NewAuth(authService, jwtConfig)
 		usersHandler    = handlers.NewUsers(userService, uploader)
 		categoryHandler = handlers.NewCategories(categoryService)
+		bookHandler     = handlers.NewBooks(bookService, uploader)
 	)
 
 	logger, _ := zap.NewProduction()
@@ -59,6 +63,14 @@ func NewApp(repository *gorm.DB, cld *cloudinary.Cloudinary, jwtConfig middlewar
 	categoryRoutes.Post("/categories", middlewares.VerifyAdmin(), middlewares.ValidateBody(&categories.CategoryRequest{}), categoryHandler.Create)
 	categoryRoutes.Patch("/categories/:id", middlewares.VerifyAdmin(), middlewares.ValidateBody(&categories.CategoryRequest{}), categoryHandler.Update)
 	categoryRoutes.Delete("/categories/:id", middlewares.VerifyAdmin(), categoryHandler.Delete)
+
+	bookRoutes := app.Group("api/v1", jwtMiddleware, middlewares.VerifyToken())
+	bookRoutes.Get("/books/", bookHandler.GetAll)
+	bookRoutes.Get("/books/:id", bookHandler.GetById)
+	bookRoutes.Get("/books/category/:id", bookHandler.GetByCategory)
+	bookRoutes.Post("/books", middlewares.VerifyAdmin(), middlewares.ValidateBody(&books.BookRequest{}), bookHandler.Create)
+	bookRoutes.Patch("/books/:id", middlewares.VerifyAdmin(), middlewares.ValidateBody(&books.BookRequest{}), bookHandler.Update)
+	bookRoutes.Delete("/books/:id", middlewares.VerifyAdmin(), bookHandler.Delete)
 
 	return app
 }

@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// model category for response
+// struct category for DTO/response
 type Category struct {
 	ID          uint           `json:"id" gorm:"primaryKey" `
 	Name        string         `json:"name" gorm:"unique"`
